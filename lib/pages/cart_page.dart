@@ -5,12 +5,9 @@ import 'package:provide/provide.dart';
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Provide<Counter>(builder: (context,child,counter){
-         return Text('${counter.value}',
-        style:Theme.of(context).textTheme.display1
-        );
-      })
-    );
+    return Center(child: Provide<Counter>(builder: (context, child, counter) {
+      return Text('${counter.value}',
+          style: Theme.of(context).textTheme.headline4);
+    }));
   }
 }

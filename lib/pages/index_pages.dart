@@ -6,12 +6,13 @@ import 'package:flutter_shop/pages/home_page.dart';
 import 'package:flutter_shop/pages/member_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class IndexPages extends StatefulWidget  {
+class IndexPages extends StatefulWidget {
   @override
   _IndexPagesState createState() => _IndexPagesState();
 }
 
-class _IndexPagesState extends State<IndexPages> /*with SingleTickerProviderStateMixin*/ {
+class _IndexPagesState
+    extends State<IndexPages> /*with SingleTickerProviderStateMixin*/ {
   int currentIndex = 0;
   var currentPage;
 
@@ -28,25 +29,29 @@ class _IndexPagesState extends State<IndexPages> /*with SingleTickerProviderStat
           Icons.home,
           // color: Colors.blue,
         ),
-        title: Text('首页')),
+        // title: Text('首页')
+        label: "首页"),
     BottomNavigationBarItem(
         icon: Icon(
           Icons.search,
           // color: Colors.blue,
         ),
-        title: Text('分类')),
+        // title: Text('分类')
+        label: "分类"),
     BottomNavigationBarItem(
         icon: Icon(
           Icons.shopping_cart,
           // color: Colors.blue,
         ),
-        title: Text('购物车')),
+        // title: Text('购物车')
+        label: "购物车"),
     BottomNavigationBarItem(
         icon: Icon(
           Icons.people,
           // color: Colors.blue,
         ),
-        title: Text('会员中心')),
+        // title: Text('会员中心')
+        label: "会员中心"),
   ];
 
   @override
@@ -57,12 +62,12 @@ class _IndexPagesState extends State<IndexPages> /*with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context,height: 1334,width:750,allowFontScaling: false);
+    ScreenUtil.init(context, height: 1334, width: 750, allowFontScaling: false);
     return Container(
-      child: Scaffold(      
+      child: Scaffold(
         backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
         bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,            
+            type: BottomNavigationBarType.fixed,
             currentIndex: currentIndex,
             onTap: (index) {
               setState(() {
@@ -71,11 +76,8 @@ class _IndexPagesState extends State<IndexPages> /*with SingleTickerProviderStat
               });
             },
             items: bottomList),
-            // body: currentPage,
-       body: IndexedStack(
-        index: currentIndex,
-        children: pagesList
-      ),      
+        // body: currentPage,
+        body: IndexedStack(index: currentIndex, children: pagesList),
       ),
     );
   }

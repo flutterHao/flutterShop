@@ -1,6 +1,6 @@
-
 import 'dart:developer';
 
+// import 'package:fluro/fluro.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provide/category_goods_list.dart';
@@ -21,13 +21,13 @@ import 'routers/routers.dart';
 // MyApp()
 // );
 
-void main(){
-  var counter=new Counter();
-var childCategoryPro=new ChildCategoryPro();
-var categoryGoods=new CategoryGoodsListProvide();
-var detailGoods=new DetailGoodProvide();
+void main() {
+  var counter = new Counter();
+  var childCategoryPro = new ChildCategoryPro();
+  var categoryGoods = new CategoryGoodsListProvide();
+  var detailGoods = new DetailGoodProvide();
 
-  var providers =new Providers();
+  var providers = new Providers();
   providers..provide(Provider<Counter>.value(counter));
   providers.provide(Provider<ChildCategoryPro>.value(childCategoryPro));
   providers.provide(Provider<CategoryGoodsListProvide>.value(categoryGoods));
@@ -39,17 +39,15 @@ var detailGoods=new DetailGoodProvide();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final router=Router();
+    final router = FluroRouter();
     Routers.configurePageRoutes(router);
-    Application.router=router;
+    Application.router = router;
     return MaterialApp(
       onGenerateRoute: Application.router.generator,
-          title: '百姓生活+',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor:Colors.blue
-          ),
-          home:IndexPages(),
-        );
+      title: '百姓生活+',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primaryColor: Colors.red[900]),
+      home: IndexPages(),
+    );
   }
 }

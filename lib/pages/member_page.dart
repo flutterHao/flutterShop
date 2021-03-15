@@ -7,12 +7,8 @@ class MemberPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-       mainAxisAlignment: MainAxisAlignment.center,
-        children:<Widget>[
-          Number(),
-          MyButton()
-        ]
-      ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[Number(), MyButton()]),
     );
   }
 }
@@ -20,30 +16,27 @@ class MemberPage extends StatelessWidget {
 class Number extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:Provide<Counter>(
-        builder: (context,child,counter){
-            return Text('${counter.value}',
-            style:Theme.of(context).textTheme.display1
-            );
-        },
-        )
-    );
+    return Container(child: Provide<Counter>(
+      builder: (context, child, counter) {
+        return Text('${counter.value}',
+            style: Theme.of(context).textTheme.headline4);
+      },
+    ));
   }
 }
 
 class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:Provide<Counter>(builder:(context,child,counter){
+    return Container(child: Provide<Counter>(
+      builder: (context, child, counter) {
         return RaisedButton(
-          onPressed: (){
+          onPressed: () {
             counter.increment();
           },
           child: Text('点击${counter.value}次'),
         );
-      } ,)
-    );
+      },
+    ));
   }
 }

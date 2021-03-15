@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class GoodDetailModel {
   String code;
   String message;
@@ -10,7 +8,8 @@ class GoodDetailModel {
   GoodDetailModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null ? new GoodDetailData.fromJson(json['data']) : null;
+    data =
+        json['data'] != null ? new GoodDetailData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -63,7 +62,7 @@ class GoodDetailData {
 
 class GoodInfo {
   String image5;
-  Double amount;
+  int amount;
   String image3;
   String image4;
   String goodsId;
@@ -71,7 +70,7 @@ class GoodInfo {
   String image1;
   String image2;
   String goodsSerialNumber;
-  Double oriPrice;
+  double oriPrice;
   double presentPrice;
   String comPic;
   int state;

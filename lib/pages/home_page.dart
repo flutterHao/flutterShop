@@ -40,9 +40,10 @@ class _HomePageState extends State<HomePage>
     // print('像素密度-----------:${ScreenUtil.pixelRatio}');
     return Container(
       color: Colors.black,
-      child: Scaffold(       
-        appBar: AppBar(title: Text('Homepage'),
-        // backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Homepage'),
+          // backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
         ),
         body: FutureBuilder(
           future: request('homePageContent', formData: fromData),
@@ -65,14 +66,14 @@ class _HomePageState extends State<HomePage>
 
               return EasyRefresh(
                 refreshFooter: ClassicsFooter(
-                   key:_footerKey,
-                    bgColor:Colors.white,
-                    textColor: Colors.pink,
-                    moreInfoColor: Colors.pink,
-                    showMore: true,
-                    noMoreText: '没有更多了',
-                    moreInfo: '加载中',
-                    loadReadyText:'上拉加载....',  
+                  key: _footerKey,
+                  bgColor: Colors.white,
+                  textColor: Colors.pink,
+                  moreInfoColor: Colors.pink,
+                  showMore: true,
+                  noMoreText: '没有更多了',
+                  moreInfo: '加载中',
+                  loadReadyText: '上拉加载....',
                 ),
                 child: SingleChildScrollView(
                     child: Column(
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage>
                       floorPic: floorPic3,
                     ),
                     FloorContent(floorList: floorList3),
-                    _hotGoodsList(),
+                    _hotGoodsList(context),
                   ],
                 )),
                 loadMore: () async {
@@ -110,14 +111,13 @@ class _HomePageState extends State<HomePage>
                   await request('homePageBelowConten', formData: formPage)
                       .then((val) {
                     var data = json.decode(val.toString());
-                   if(data['data']!=null){
+                    if (data['data'] != null) {
                       List<Map> newGoodsList = (data['data'] as List).cast();
                       setState(() {
-                      hotGoodsList.addAll(newGoodsList);
-                      page++;
-                    });
-                   }
-                    
+                        hotGoodsList.addAll(newGoodsList);
+                        page++;
+                      });
+                    }
                   });
                 },
               );
@@ -143,12 +143,13 @@ class _HomePageState extends State<HomePage>
   );
 
   //火爆专区子项
-  Widget _wrapList() {
+  Widget _wrapList(BuildContext context) {
     if (hotGoodsList.length != 0) {
       List<Widget> wrapList = hotGoodsList.map((val) {
         return InkWell(
           onTap: () {
-            Application.router.navigateTo(context, '/detail?id=${val['goodsId']}');
+            Application.router
+                .navigateTo(context, '/detail?id=${val['goodsId']}');
           },
           child: Container(
               width: ScreenUtil().setWidth(372),
@@ -186,11 +187,11 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  Widget _hotGoodsList() {
+  Widget _hotGoodsList(context) {
     return Column(
       children: <Widget>[
         hotTitle,
-        _wrapList(),
+        _wrapList(context),
       ],
     );
   }
@@ -210,9 +211,15 @@ class SwiperDiy extends StatelessWidget {
       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Swiper(
         itemBuilder: (context, index) {
-          return Image.network(
-            swiperDataList[index]['image'],
-            fit: BoxFit.cover,
+          return InkWell(
+            onTap: () {
+              Application.router.navigateTo(
+                  context, '/detail?id=${swiperDataList[index]['goodsId']}');
+            },
+            child: Image.network(
+              swiperDataList[index]['image'],
+              fit: BoxFit.cover,
+            ),
           );
         },
         itemCount: swiperDataList.length,
@@ -257,7 +264,7 @@ class TopNavigator extends StatelessWidget {
       height: ScreenUtil().setHeight(420),
       padding: EdgeInsets.all(5.0),
       child: GridView.count(
-        physics:NeverScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 5,
         padding: EdgeInsets.all(5.0),
         children: navigatorList.map((item) {
@@ -273,8 +280,8 @@ class AdPicture extends StatelessWidget {
   AdPicture({Key key, this.adPicture}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(   
-      padding: EdgeInsets.only(left:10,right:10),
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Image.network("$adPicture"),
     );
   }
@@ -325,7 +332,7 @@ class Recommend extends StatelessWidget {
     );
   }
 
-  Widget _recommandItem(index) {
+  Widget _recommandItem(index, context) {
     return Container(
       width: ScreenUtil().setWidth(375),
       height: ScreenUtil().setHeight(300),
@@ -333,7 +340,10 @@ class Recommend extends StatelessWidget {
         border: Border(right: BorderSide(width: 0.25)),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Application.router.navigateTo(
+              context, '/detail?id=${recommendList[index]['goodsId']}');
+        },
         child: Column(children: <Widget>[
           Image.network(recommendList[index]['image']),
           Text('￥${recommendList[index]['mallPrice']}'),
@@ -354,7 +364,7 @@ class Recommend extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (comtext, index) {
-          return _recommandItem(index);
+          return _recommandItem(index, comtext);
         },
         itemCount: recommendList.length,
       ),

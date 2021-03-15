@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
-class Application{
-  static Router router;
+
+class Application {
+  static FluroRouter router;
 }
